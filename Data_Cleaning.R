@@ -1,10 +1,8 @@
+
 data<-read.csv("Retail_data.csv")
 print(data)
-
 head(data)
-
 dim(data) # Check how many rows and columns
-
 str(data) # Data types of each column
 
 colSums(is.na(data)) # show how many missing values
@@ -23,44 +21,54 @@ data$Ratings<-as.factor(data$Ratings)
 data$Income<-as.factor(data$Income)
 data$Gender<-as.factor(data$Gender)
 
-range(data$Age) #Check Age
-range(data$Amount) #Check Amt
-table(data$Ratings) #check Ratings
+#Blank Values Check
+table(data$Country)
+table(data$Gender)
+table(data$Income)
+table(data$Order_Status)
+table(data$Payment_Method)
+table(data$Shipping_Method)
+table(data$Product_Category)
+table(data$Customer_Segment)
+table(data$Product_Type)
+table(data$City)
+table(data$State)
+table(data$Feedback)
+
 
 data<- data[data$Country !="",] #Remove rows where Country is blank
 data$Country <- droplevels(data$Country) #Drop unused empty 
-table(data$Country)
+
 
 data<-data[data$Gender !="",] # Remvoe rows whereis Gender blank 
-table(data$Gender)
-table(data$Gender)
+data$Gender <- droplevels(data$Gender)
+
 
 data<-data[data$Income !="",] # Remove rows where Income is blank
 data$Income <- droplevels(data$Income)
-table(data$Income)
 
 data <- data[data$Order_Status != "", ] # Remove blank rows and drop levels
-data$Order_Status <- droplevels(data$Order_Status)
-table(data$Order_Status)
 
 data<-data[data$Payment_Method !="",]
-table(data$Payment_Method)
 
 data<-data[data$Shipping_Method !="",]
-table(data$Shipping_Method)
-
-table(data$Feedback)
 
 data<- data[data$Product_Category !="",]
-table(data$Product_Category)
-dim(data)
 
 data <- data[data$Customer_Segment != "", ]
-table(data$Customer_Segment)
 
 data <- data[data$Product_Brand != "", ]
-table(data$Product_Type)
 
+data <- data[data$City != "", ]
+
+data <- data[data$State != "", ]
+
+
+range(data$Age)      
+range(data$Amount)   
+table(data$Ratings)  
+table(data$Country)  
+sum(is.na(data)) 
 dim(data)
 
 # Save cleaned data for teammates
