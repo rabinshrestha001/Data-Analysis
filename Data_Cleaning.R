@@ -1,77 +1,77 @@
+# ============================================================
+# DATA CLEANING - Retail Transactional Data
+# ============================================================
 
-data<-read.csv("Retail_data.csv")
-print(data)
+# Load Data
+data <- read.csv("/home/college/Documents/3rd-SEM/All Assignment/Data Analysis/Retail_data.csv")
 head(data)
-dim(data) # Check how many rows and columns
-str(data) # Data types of each column
+dim(data)
+str(data)
 
-colSums(is.na(data)) # show how many missing values
+# Check Missing Values
+colSums(is.na(data))
 
-data<-na.omit(data) #Remove all rows that have missing values
+# Remove Missing Values
+data <- na.omit(data)
 dim(data)
 
-data<-unique(data) #Remove duplicate rows
+# Remove Duplicates
+data <- unique(data)
 dim(data)
 
-# Fix data types
-data$Age<-as.numeric(data$Age)
-data$Amount<-as.numeric(data$Amount)
-data$Country<-as.factor(data$Country)
-data$Ratings<-as.factor(data$Ratings)
-data$Income<-as.factor(data$Income)
-data$Gender<-as.factor(data$Gender)
+# Fix Data Type
+data$Age  <- as.numeric(data$Age)
+data$Amount   <- as.numeric(data$Amount)
+data$Total_Amount  <- as.numeric(data$Total_Amount)
+data$Total_Purchases  <- as.integer(data$Total_Purchases)
+data$Country  <- as.factor(data$Country)
+data$Gender   <- as.factor(data$Gender)
+data$Income    <- as.factor(data$Income)
+data$Customer_Segment <- as.factor(data$Customer_Segment)
+data$Feedback  <- as.factor(data$Feedback)
+data$Product_Category <- as.factor(data$Product_Category)
+data$Shipping_Method  <- as.factor(data$Shipping_Method)
+data$Payment_Method <- as.factor(data$Payment_Method)
+data$Order_Status  <- as.factor(data$Order_Status)
+data$Ratings   <- as.factor(data$Ratings)
 
-#Blank Values Check
-table(data$Country)
-table(data$Gender)
-table(data$Income)
-table(data$Order_Status)
-table(data$Payment_Method)
-table(data$Shipping_Method)
-table(data$Product_Category)
-table(data$Customer_Segment)
-table(data$Product_Type)
-table(data$City)
-table(data$State)
-table(data$Feedback)
+# Check Blank String Values
+table(data$Country);        table(data$Gender)
+table(data$Income);         table(data$Order_Status)
+table(data$Payment_Method); table(data$Shipping_Method)
+table(data$Product_Category); table(data$Customer_Segment)
+table(data$Feedback);       table(data$Ratings)
+table(data$City);           table(data$State)
 
-
-data<- data[data$Country !="",] #Remove rows where Country is blank
-data$Country <- droplevels(data$Country) #Drop unused empty 
-
-
-data<-data[data$Gender !="",] # Remvoe rows whereis Gender blank 
-data$Gender <- droplevels(data$Gender)
-
-
-data<-data[data$Income !="",] # Remove rows where Income is blank
-data$Income <- droplevels(data$Income)
-
-data <- data[data$Order_Status != "", ] # Remove blank rows and drop levels
-
-data<-data[data$Payment_Method !="",]
-
-data<-data[data$Shipping_Method !="",]
-
-data<- data[data$Product_Category !="",]
-
+# Remove Blank String Rows
+data <- data[data$Country != "", ];          data$Country <- droplevels(data$Country)
+data <- data[data$Gender != "", ];           data$Gender <- droplevels(data$Gender)
+data <- data[data$Income != "", ];           data$Income <- droplevels(data$Income)
+data <- data[data$Order_Status != "", ]
+data <- data[data$Payment_Method != "", ]
+data <- data[data$Shipping_Method != "", ]
+data <- data[data$Product_Category != "", ]
 data <- data[data$Customer_Segment != "", ]
-
 data <- data[data$Product_Brand != "", ]
-
 data <- data[data$City != "", ]
-
 data <- data[data$State != "", ]
+data <- data[data$Feedback != "", ];         data$Feedback <- droplevels(data$Feedback)
+data <- data[data$Ratings != "", ];          data$Ratings <- droplevels(data$Ratings)
 
+# Data Validation
+range(data$Age)
+range(data$Amount)
+range(data$Total_Amount)
 
-range(data$Age)      
-range(data$Amount)   
-table(data$Ratings)  
-table(data$Country)  
-sum(is.na(data)) 
+# Filter unrealistic age values
+data <- data[data$Age >= 18 & data$Age <= 100, ]
+
+# Check
+sum(is.na(data))
 dim(data)
+table(data$Ratings)
+cat("Cleaning complete! Final rows:", nrow(data), "\n")
 
-# Save cleaned data for teammates
+# Save Cleaned Data for Teammates
 write.csv(data, "cleaned_retail_data.csv", row.names = FALSE)
-
-
+cat("Cleaned data saved successfully!\n")

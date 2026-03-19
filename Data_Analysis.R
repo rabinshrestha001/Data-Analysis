@@ -52,6 +52,26 @@ barplot(averages,
                  "lightgreen", "plum"),
         ylim = c(0, 1))
 
+#Calculate average rating by Country and Income
+#Low Income
+low<- subset(data, Income=="low")
+cat("Low Income")
+
+low_usa<-subset(low, Country="USA")
+cat("USA:", mean(low_usa$Ratings_num),'\n')
+
+low_uk <- subset(low, Country == "UK")
+cat("UK:", mean(low_uk$Ratings_Num), "\n")
+
+low_aus <- subset(low, Country == "Australia")
+cat("Australia:", mean(low_aus$Ratings_Num), "\n")
+
+low_ger <- subset(low, Country == "Germany")
+cat("Germany:", mean(low_ger$Ratings_Num), "\n")
+
+low_can <- subset(low, Country == "Canada")
+cat("Canada:", mean(low_can$Ratings_Num), "\n")
+
 
 
 
